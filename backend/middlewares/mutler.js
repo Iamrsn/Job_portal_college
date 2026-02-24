@@ -1,4 +1,14 @@
 import multer from "multer";
 
 const storage = multer.memoryStorage();
-export const singleUpload = multer({storage}).single("file");
+
+const upload = multer({
+  storage,
+  limits: { fileSize: 5 * 1024 * 1024 } // 5MB
+});
+
+export const singleUpload = upload.fields([
+  { name: "profilePhoto", maxCount: 1 },
+  { name: "resume", maxCount: 1 },
+  { name: "logo", maxCount: 1 }   // 🔥 ADD THIS
+]);
